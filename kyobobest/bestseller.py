@@ -22,5 +22,5 @@ with open("result.txt", "a", encoding="utf-8") as f:
         title = bsObj.select( "h1.title strong" )[0].get_text().strip()
         author = bsObj.select( "span.name  a" )[0].get_text()
         # print (title + " / " + "저자:" + author)
-        data = (title + " / " + "저자:" + author)
+        data = (title + " / " + "저자:" + author + "\n")
         f.write(data)
