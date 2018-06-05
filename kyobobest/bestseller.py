@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 from urllib.request import urlopen
 import json
+import sys
 # import os
 
 req = requests.get("http://www.kyobobook.co.kr/bestSellerNew/bestseller.laf")
@@ -9,6 +10,7 @@ html = req.text
 bsObj = BeautifulSoup(html, "html.parser")
 book_page_urls = [a.attrs.get('href') for a in bsObj.select('div.title a[href^="http://www.kyobobook.co.kr/product/detailViewKor.laf"]')]
 
+f = open("result.txt","w")
 # print(book_page_urls)
 for book_page_url in book_page_urls:
     req = requests.get(book_page_url)
