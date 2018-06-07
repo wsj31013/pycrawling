@@ -3,7 +3,16 @@ from bs4 import BeautifulSoup
 from urllib.request import urlopen
 import json
 import sys
-# import os
+import codecs
+from datetime import date
+
+# module for send email
+import smtplib
+from email.mime.text import MIMEText
+
+
+nowDate = date.today().strftime("%Y-%m-%d")
+
 
 req = requests.get("http://www.kyobobook.co.kr/bestSellerNew/bestseller.laf")
 html = req.text
@@ -11,8 +20,7 @@ bsObj = BeautifulSoup(html, "html.parser")
 book_page_urls = [a.attrs.get('href') for a in bsObj.select('div.title a[href^="http://www.kyobobook.co.kr/product/detailViewKor.laf"]')]
 
 
-f = open("result.txt","a", encoding="utf-8")
-
+f = open("result.txt", "w", encoding="utf-8")
 
 # print(book_page_urls)
 with open("result.txt", "a", encoding="utf-8") as f:
@@ -24,3 +32,38 @@ with open("result.txt", "a", encoding="utf-8") as f:
         # print (title + " / " + "저자:" + author)
         data = (title + " / " + "저자:" + author + "\n")
         f.write(data)
+
+
+# send email
+gmail_send_user = "email"
+gmail_send_pw = "pw"
+recipients = ["email1","email2"]
+
+
+def send_email():
+    mail_text = codecs.open("./result.txt", "r", encoding="utf-8")
+    msg = MIMEText(mail_text.read())
+    mail_text.close()
+    msg["Subject"] = nowDate + "_Kyobo Best Seller TOP20"
+    msg["From"] = gmail_send_user
+    msg["To"] = ", ".join(recipients)
+
+    try:
+        gmail_server = smtplib.SMTP_SSL("smtp.gmail.com", 465)
+        gmail_server.login(gmail_send_user, gmail_send_pw)
+        gmail_server.sendmail(gmail_send_user, recipients, msg.as_string())
+        gmail_server.quit()
+        print("success sending email")
+    except:
+        print("Fail to send email")
+
+if __name__ == "__main__":
+    send_email()
+
+
+
+
+
+
+
+
