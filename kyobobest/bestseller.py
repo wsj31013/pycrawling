@@ -35,9 +35,9 @@ with open("result.txt", "a", encoding="utf-8") as f:
 
 
 # send email
-gmail_send_user = "email"
-gmail_send_pw = "pw"
-recipients = ["email1","email2"]
+gmail_send_user = "보내는 사람 email"
+gmail_send_pw = "보내는 사람 email password"
+recipients = ["받는사람 email01","받는 사람 email02"]
 
 
 def send_email():
