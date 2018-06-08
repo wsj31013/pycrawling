@@ -15,8 +15,9 @@ nowDate = date.today().strftime('%Y-%m-%d')
 req = requests.get('http://www.kyobobook.co.kr/bestSellerNew/bestseller.laf')
 html = req.text
 bsObj = BeautifulSoup(html, 'html.parser')
-book_page_urls = [a.attrs.get('href') for a in
-                  bsObj.select('div.title a[href^="http://www.kyobobook.co.kr/product/detailViewKor.laf"]')]
+book_page_urls = []
+for a in bsObj.select('div.title a[href^="http://www.kyobobook.co.kr/product/detailViewKor.laf"]'):
+    book_page_urls.append(a.attrs.get('href'))
 
 f = open('result.txt', 'w', encoding='utf-8')
 
