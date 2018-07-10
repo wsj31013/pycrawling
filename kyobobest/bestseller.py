@@ -19,7 +19,6 @@ book_page_urls = []
 for a in bsObj.select('div.title a[href^="http://www.kyobobook.co.kr/product/detailViewKor.laf"]'):
     book_page_urls.append(a.attrs.get('href'))
 
-f = open('result.txt', 'w', encoding='utf-8')
 
 # print(book_page_urls)
 with open('result.txt', 'a', encoding='utf-8') as f:
