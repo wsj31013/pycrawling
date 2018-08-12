@@ -21,7 +21,7 @@ for a in bsObj.select('div.title a[href^="http://www.kyobobook.co.kr/product/det
 
 
 # print(book_page_urls)
-with open('result.txt', 'a', encoding='utf-8') as f:
+with open('result.txt', 'w', encoding='utf-8') as f:
     for book_page_url in book_page_urls:
         req = requests.get(book_page_url)
         bsObj = BeautifulSoup(req.text, 'html.parser')
